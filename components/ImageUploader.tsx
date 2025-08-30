@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useRef } from 'react';
 import type { UploadedImage } from '../types';
 
@@ -44,7 +43,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload }) =
   }, [onImageUpload]);
 
   return (
-    <section className="bg-gray-800/50 p-6 rounded-xl shadow-md border border-gray-700 h-full">
+    <div className="bg-dark-card p-6 rounded-xl shadow-md border border-dark-border h-full">
       <input
         type="file"
         ref={fileInputRef}
@@ -55,31 +54,29 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload }) =
       />
       <div 
         onClick={handleUploadClick}
-        className="mt-1 flex justify-center items-center h-full min-h-[12rem] px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md cursor-pointer hover:border-indigo-500 transition-colors"
+        className="mt-1 flex justify-center items-center h-full min-h-[12rem] px-6 pt-5 pb-6 border-2 border-dark-border border-dashed rounded-md cursor-pointer hover:border-accent-blue transition-colors bg-dark-bg/50"
       >
         {preview ? (
           <div className="relative group">
             <img src={preview} alt="Product preview" className="max-h-48 rounded-lg shadow-lg" />
             <button
               onClick={handleRemove}
-              className="absolute -top-2 -right-2 bg-red-600 hover:bg-red-500 text-white rounded-full p-1.5 shadow-md opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100"
+              className="absolute -top-2 -right-2 bg-accent-red hover:opacity-90 text-white rounded-full p-1.5 shadow-md opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100"
               aria-label="Remove image"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
           </div>
         ) : (
           <div className="space-y-1 text-center">
-            <svg className="mx-auto h-12 w-12 text-gray-500" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-              <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <div className="flex text-sm text-gray-400">
-              <p className="pl-1 font-semibold text-indigo-400">Click to upload an image</p>
+            <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto h-12 w-12 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M12 15v4m-3-3l3 3 3-3" /></svg>
+            <div className="flex text-sm text-text-secondary">
+              <p className="pl-1">Click to upload or <span className="font-semibold text-accent-blue">drag and drop</span></p>
             </div>
-            <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+            <p className="text-xs text-text-secondary/70">PNG, JPG, GIF up to 10MB</p>
           </div>
         )}
       </div>
-    </section>
+    </div>
   );
 };

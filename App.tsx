@@ -152,8 +152,6 @@ const App: React.FC = () => {
   }, [uploadedImage]);
 
   const handlePurchaseCredits = async (creditAmount: number, paymentToken: string) => {
-    // In a real app, you'd send the paymentToken to your backend.
-    // Here, we just call our mock API.
     console.log("Simulating purchase with token:", paymentToken);
     const newTotal = await api.purchaseCredits(creditAmount);
     setUserCredits(newTotal);
@@ -163,17 +161,24 @@ const App: React.FC = () => {
   const hasEnoughCredits = userCredits >= selectedAdFormat.cost;
   const buttonText = selectedAdFormat.outputType === 'video' ? 'Generate Video' : 'Generate Ad';
   const buttonIcon = selectedAdFormat.outputType === 'video' ? (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
     </svg>
   ) : (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
         <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
     </svg>
   );
 
+  const SectionHeader = ({ number, title }: { number: number, title: string }) => (
+    <div className="flex items-center space-x-4 mb-5">
+      <div className="flex-shrink-0 bg-gray-700 rounded-full h-8 w-8 flex items-center justify-center font-bold text-accent-blue ring-4 ring-gray-700/30">{number}</div>
+      <h2 className="text-2xl font-medium text-text-primary">{title}</h2>
+    </div>
+  );
+
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 font-sans">
+    <div className="min-h-screen bg-dark-bg text-text-primary font-sans">
       <Header 
         creationsCount={creations.length} 
         onToggleGallery={() => setIsGalleryOpen(prev => !prev)}
@@ -198,22 +203,16 @@ const App: React.FC = () => {
         />
       )}
 
-      <main className="container mx-auto p-4 md:p-8">
-        <div className="space-y-12">
+      <main className="max-w-7xl mx-auto p-4 md:p-8">
+        <div className="space-y-16">
           
           <section>
-             <div className="flex items-center space-x-3 mb-4">
-                <div className="flex-shrink-0 bg-indigo-500 rounded-full h-8 w-8 flex items-center justify-center font-bold text-white ring-4 ring-indigo-500/30">1</div>
-                <h2 className="text-xl font-bold text-white">Upload Product Image</h2>
-              </div>
+            <SectionHeader number={1} title="Upload Product Image" />
             <ImageUploader onImageUpload={handleImageUpload} />
           </section>
 
           <section>
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="flex-shrink-0 bg-indigo-500 rounded-full h-8 w-8 flex items-center justify-center font-bold text-white ring-4 ring-indigo-500/30">2</div>
-              <h2 className="text-xl font-bold text-white">Choose & Customize Ad</h2>
-            </div>
+            <SectionHeader number={2} title="Choose & Customize Ad" />
             <AdFormatSelector
               formats={AD_FORMATS}
               selectedFormat={selectedAdFormat}
@@ -229,11 +228,11 @@ const App: React.FC = () => {
             />
           </section>
 
-          <section className="text-center">
+          <section className="text-center py-8">
             <button
               onClick={handleGenerateClick}
               disabled={!uploadedImage || isLoading || !hasEnoughCredits}
-              className="w-full max-w-md bg-indigo-600 hover:bg-indigo-700 disabled:bg-red-900/50 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center mx-auto"
+              className="w-full max-w-sm bg-accent-blue hover:bg-blue-400 disabled:bg-gray-600 disabled:text-text-secondary disabled:cursor-not-allowed text-gray-900 font-bold text-lg py-4 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center mx-auto"
             >
               {isLoading ? (
                  <svg className="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -242,7 +241,7 @@ const App: React.FC = () => {
                 </svg>
               ) : !hasEnoughCredits && uploadedImage ? (
                 <>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01" /></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v4a1 1 0 102 0V7zM10 15a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" /></svg>
                   Insufficient Credits
                 </>
               ) : (
@@ -255,10 +254,7 @@ const App: React.FC = () => {
           </section>
 
           <section>
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="flex-shrink-0 bg-indigo-500 rounded-full h-8 w-8 flex items-center justify-center font-bold text-white ring-4 ring-indigo-500/30">3</div>
-              <h2 className="text-xl font-bold text-white">View Result</h2>
-            </div>
+            <SectionHeader number={3} title="View Result" />
              <ResultDisplay
                 originalImage={uploadedImage}
                 generatedImage={generatedImage}

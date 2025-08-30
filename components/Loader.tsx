@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 const messages = [
@@ -29,10 +28,10 @@ export const Loader: React.FC = () => {
   return (
     <div className="text-center p-8">
       <div className="flex justify-center items-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-500"></div>
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-accent-blue"></div>
       </div>
-      <h3 className="mt-6 text-xl font-medium text-gray-300">Generating Your Ad...</h3>
-      <p className="mt-2 text-sm text-gray-500 h-5 transition-opacity duration-500">{message}</p>
+      <h3 className="mt-6 text-xl font-medium text-text-primary">Generating Your Ad...</h3>
+      <p className="mt-2 text-sm text-text-secondary h-5 transition-opacity duration-500">{message}</p>
     </div>
   );
 };

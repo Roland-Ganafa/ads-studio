@@ -31,38 +31,38 @@ export const AdFormatSelector: React.FC<AdFormatSelectorProps> = ({
   const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
 
   return (
-    <div className="bg-gray-800/50 p-6 rounded-xl shadow-md border border-gray-700 space-y-6">
+    <div className="bg-dark-card p-6 rounded-xl shadow-md border border-dark-border space-y-8">
       {/* --- Format Selection --- */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-300 mb-4">Select Ad Format</h3>
+        <h3 className="text-lg font-medium text-text-primary mb-4">Select Ad Format</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
           {formats.map((format) => (
             <div
               key={format.id}
               onClick={() => onSelectFormat(format)}
-              className={`relative p-4 rounded-xl cursor-pointer transition-all duration-200 border-2 ${
+              className={`relative p-4 rounded-lg cursor-pointer transition-all duration-200 border-2 ${
                 selectedFormat.id === format.id
-                  ? 'bg-indigo-900/40 border-indigo-500 shadow-lg scale-105'
-                  : 'bg-gray-700/30 border-gray-700 hover:border-gray-500 hover:bg-gray-700/50'
+                  ? 'bg-blue-900/30 border-accent-blue shadow-lg'
+                  : 'bg-dark-bg/50 border-dark-border hover:border-gray-600'
               }`}
               role="radio"
               aria-checked={selectedFormat.id === format.id}
               tabIndex={0}
               onKeyPress={(e) => e.key === 'Enter' && onSelectFormat(format)}
             >
-              <div className="absolute top-2 right-2 bg-indigo-500 text-white rounded-full p-0.5 shadow">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-              </div>
+              {selectedFormat.id === format.id && (
+                <div className="absolute top-3 right-3 text-accent-blue">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                </div>
+              )}
               <div className="flex items-start space-x-4">
-                <div className="text-indigo-400 mt-1 flex-shrink-0 w-6 h-6">{format.icon}</div>
+                <div className="text-accent-blue mt-1 flex-shrink-0 w-6 h-6">{format.icon}</div>
                 <div className="flex-1">
-                  <h3 className="font-bold text-white pr-6">{format.title}</h3>
-                  <p className="text-sm text-gray-400 mt-1">{format.description}</p>
+                  <h3 className="font-semibold text-text-primary pr-6">{format.title}</h3>
+                  <p className="text-sm text-text-secondary mt-1">{format.description}</p>
                 </div>
               </div>
-              <div className="absolute bottom-2 right-3 flex items-center justify-center text-xs font-bold text-yellow-400 bg-gray-900/50 rounded-full px-2 py-0.5">
+              <div className="absolute bottom-2 right-3 flex items-center justify-center text-xs font-bold text-yellow-400 bg-dark-bg rounded-full px-2 py-0.5">
                 {format.cost} {format.cost === 1 ? 'Credit' : 'Credits'}
               </div>
             </div>
@@ -71,17 +71,17 @@ export const AdFormatSelector: React.FC<AdFormatSelectorProps> = ({
       </div>
 
       {/* --- Customization Section --- */}
-      <div className="border-t border-gray-700 pt-6 space-y-4">
-        <h3 className="text-lg font-semibold text-gray-300">Customize (Optional)</h3>
+      <div className="border-t border-dark-border pt-8 space-y-4">
+        <h3 className="text-lg font-medium text-text-primary">Customize (Optional)</h3>
         
         {/* Ad Copy Card */}
-        <div className="bg-gray-900/40 p-4 rounded-lg border border-gray-600">
+        <div className="bg-dark-bg/50 p-4 rounded-lg border border-dark-border">
             <div className="flex justify-between items-center mb-2">
-                <label htmlFor="ad-copy" className="block text-sm font-medium text-gray-400">Ad Copy / Slogan</label>
+                <label htmlFor="ad-copy" className="block text-sm font-medium text-text-secondary">Ad Copy / Slogan</label>
                  <button 
                   onClick={onSuggestSlogans}
                   disabled={!isImageUploaded || isSuggesting}
-                  className="flex items-center gap-2 text-xs bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-900/50 disabled:cursor-not-allowed text-white font-semibold py-1 px-3 rounded-md transition-all"
+                  className="flex items-center gap-2 text-xs bg-gray-600 hover:bg-gray-500 disabled:bg-gray-700 disabled:cursor-not-allowed text-text-primary font-medium py-1.5 px-3 rounded-md transition-all"
                   title="Suggest slogans based on your uploaded image"
                 >
                   {isSuggesting ? (
@@ -101,17 +101,17 @@ export const AdFormatSelector: React.FC<AdFormatSelectorProps> = ({
                 value={adCopy}
                 onChange={(e) => onAdCopyChange(e.target.value)}
                 placeholder="e.g., 'Summer Sale - 50% Off!'"
-                className="w-full bg-gray-900/50 border border-gray-600 rounded-lg p-3 text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                className="w-full bg-dark-bg border border-dark-border rounded-lg p-3 text-text-primary placeholder-text-secondary/70 focus:ring-1 focus:ring-accent-blue focus:border-accent-blue transition"
             />
             {suggestedSlogans.length > 0 && (
               <div className="mt-3 space-y-2">
-                <p className="text-xs text-gray-400">Suggestions:</p>
+                <p className="text-xs text-text-secondary">Suggestions:</p>
                 <div className="flex flex-wrap gap-2">
                     {suggestedSlogans.map((slogan, index) => (
                         <button 
                             key={index}
                             onClick={() => onAdCopyChange(slogan)}
-                            className="text-xs bg-gray-700 hover:bg-gray-600 text-gray-200 font-medium py-1 px-3 rounded-full transition-colors"
+                            className="text-xs bg-gray-700 hover:bg-gray-600 text-text-primary font-medium py-1 px-3 rounded-full transition-colors"
                         >
                             {slogan}
                         </button>
@@ -122,10 +122,10 @@ export const AdFormatSelector: React.FC<AdFormatSelectorProps> = ({
         </div>
         
         {/* Advanced Prompt Accordion */}
-        <div className="bg-gray-900/40 rounded-lg border border-gray-600 overflow-hidden">
+        <div className="bg-dark-bg/50 rounded-lg border border-dark-border overflow-hidden">
           <button 
             onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
-            className="w-full flex justify-between items-center p-4 text-left font-medium text-gray-300 hover:bg-gray-700/50 transition-colors"
+            className="w-full flex justify-between items-center p-4 text-left font-medium text-text-secondary hover:bg-gray-700/50 transition-colors"
             aria-expanded={isAdvancedOpen}
             aria-controls="advanced-prompt-panel"
           >
@@ -135,16 +135,16 @@ export const AdFormatSelector: React.FC<AdFormatSelectorProps> = ({
             </svg>
           </button>
           {isAdvancedOpen && (
-            <div id="advanced-prompt-panel" className="p-4 border-t border-gray-700">
-               <label htmlFor="custom-prompt" className="block text-sm font-medium text-gray-400 mb-2">Custom AI Prompt</label>
+            <div id="advanced-prompt-panel" className="p-4 border-t border-dark-border">
+               <label htmlFor="custom-prompt" className="block text-sm font-medium text-text-secondary mb-2">Custom AI Prompt</label>
                <textarea
                    id="custom-prompt"
                    rows={5}
                    value={customPrompt}
                    onChange={(e) => onCustomPromptChange(e.target.value)}
-                   className="w-full bg-gray-900/50 border border-gray-600 rounded-lg p-3 text-sm text-gray-300 font-mono focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                   className="w-full bg-dark-bg border border-dark-border rounded-lg p-3 text-sm text-text-primary font-mono focus:ring-1 focus:ring-accent-blue focus:border-accent-blue transition"
                />
-               <p className="text-xs text-gray-500 mt-1">Warning: Modifying this prompt may lead to unexpected results.</p>
+               <p className="text-xs text-text-secondary/70 mt-1">Warning: Modifying this prompt may lead to unexpected results.</p>
             </div>
           )}
         </div>
