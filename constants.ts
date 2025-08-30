@@ -10,6 +10,7 @@ export const AD_FORMATS: AdFormat[] = [
     prompt: "Using the provided image, create a realistic advertisement by replacing the blue 'SPACE TO LET' banner on the side of the modern, brown 'Church House' building with the user's product image. Ensure the new ad fits the banner's perspective, lighting, and shadows perfectly, blending seamlessly with the Kampala city scene.",
     example: 'Your product advertised on a large banner on a prominent building in downtown Kampala.',
     outputType: 'image',
+    cost: 1,
     icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" })),
   },
   {
@@ -19,6 +20,7 @@ export const AD_FORMATS: AdFormat[] = [
     prompt: 'Integrate this product into a realistic-looking, classic 1950s black and white newspaper advertisement. Include vintage-style typography and a grainy texture.',
     example: 'A classic, grainy black-and-white print ad for your product, straight out of the 1950s.',
     outputType: 'image',
+    cost: 1,
     icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3h9M7 16h6M7 8h6v4H7V8z" })),
   },
   {
@@ -28,6 +30,7 @@ export const AD_FORMATS: AdFormat[] = [
     prompt: 'Show this product displayed in a modern, backlit advertisement panel at a sleek, urban bus stop. The scene should be at dusk with streetlights reflecting on the glass.',
     example: 'A sleek, modern ad for your product, illuminated in a bus shelter on a city street at dusk.',
     outputType: 'image',
+    cost: 1,
     icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2" }, React.createElement('path', { d: "M12 21c-1.11 0-2-.9-2-2V9c0-1.1.9-2 2-2s2 .9 2 2v10c0 1.1-.9 2-2 2zM5 19h14V9H5v10zm0-12h14v2H5V7zm7-5c-2.76 0-5 2.24-5 5v1h10v-1c0-2.76-2.24-5-5-5z" })),
   },
   {
@@ -37,6 +40,7 @@ export const AD_FORMATS: AdFormat[] = [
     prompt: 'Create a full-page, elegant advertisement featuring this product for a luxury fashion magazine. The layout should be minimalist and sophisticated, with high-quality lighting and professional typography.',
     example: 'An elegant, full-page spread in a high-fashion magazine showcasing your product.',
     outputType: 'image',
+    cost: 1,
     icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" })),
   },
   {
@@ -46,6 +50,7 @@ export const AD_FORMATS: AdFormat[] = [
     prompt: 'Create a realistic social media post from a lifestyle influencer holding or using this product in a bright, aesthetically pleasing flat lay or scenic environment. The image should look natural and engaging.',
     example: 'A bright, aesthetic lifestyle shot of an influencer using your product naturally.',
     outputType: 'image',
+    cost: 1,
     icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" }), React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M15 13a3 3 0 11-6 0 3 3 0 016 0z" })),
   },
   {
@@ -55,6 +60,7 @@ export const AD_FORMATS: AdFormat[] = [
     prompt: 'Place this product on a vibrant advertisement attached to the back of a boda boda motorcycle taxi navigating a busy, sunny street in Kampala, Uganda. The scene should be full of life, with other boda bodas and pedestrians in the background.',
     example: 'Your ad on the back of a motorcycle taxi weaving through the busy streets of Kampala.',
     outputType: 'image',
+    cost: 1,
     icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2" }, React.createElement('path', { d: "M12 2c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm0 10c-3.31 0-6 2.69-6 6v2h12v-2c0-3.31-2.69-6-6-6zm-6-2h12v-2H6v2z" })),
   },
   {
@@ -64,6 +70,7 @@ export const AD_FORMATS: AdFormat[] = [
     prompt: 'Place this product advertisement on the side of a rugged safari vehicle in Murchison Falls National Park, Uganda. The vehicle should be parked on a savanna plain with Ugandan wildlife like giraffes or elephants visible in the background during a golden sunset.',
     example: 'Your product\'s ad on a 4x4 safari vehicle with giraffes in the background savanna.',
     outputType: 'image',
+    cost: 1,
     icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M6 18L18 6M6 6l12 12" }), React.createElement('path', { d: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" })),
   },
   // Video Formats
@@ -74,6 +81,7 @@ export const AD_FORMATS: AdFormat[] = [
     prompt: 'Create a cinematic, 8-second, 4K video. Start with a sweeping drone shot flying over a dramatic landscape (like coastal cliffs or a futuristic city). The drone then focuses on the product, which is revealed in a heroic and appealing way, based on the provided image. The overall mood should be epic and awe-inspiring.',
     example: 'A breathtaking drone video that dramatically reveals your product in a stunning location.',
     outputType: 'video',
+    cost: 10,
     icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" }), React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M21 12a9 9 0 11-18 0 9 9 0 0118 0z" })),
   },
   {
@@ -83,6 +91,7 @@ export const AD_FORMATS: AdFormat[] = [
     prompt: 'Generate a dynamic, 5-second video trailer for the product in the image. Use quick cuts, dramatic lighting, and a slow-motion effect to build excitement. The video should end with the product displayed clearly against a clean, modern background.',
     example: 'A fast-paced, exciting trailer that ends with a heroic shot of your product.',
     outputType: 'video',
+    cost: 10,
     icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" })),
   },
   {
@@ -92,6 +101,7 @@ export const AD_FORMATS: AdFormat[] = [
     prompt: 'Create a playful, 10-second stop-motion animation. The product, based on the uploaded image, should appear to assemble itself or move around on its own against a colorful, plain background. The animation style should be quirky and charming.',
     example: 'A fun stop-motion video where your product comes to life.',
     outputType: 'video',
+    cost: 10,
     icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.783-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" }))
   },
   {
@@ -101,6 +111,7 @@ export const AD_FORMATS: AdFormat[] = [
     prompt: "Create a high-energy, 10-second product montage video. Use quick cuts, dynamic camera angles, and energetic transitions to showcase the product from the user's image in various exciting contexts. The video should build momentum and end on a powerful hero shot of the product.",
     example: 'An upbeat, quick-cut video showing your product in different cool scenarios.',
     outputType: 'video',
+    cost: 10,
     icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4" }))
   },
   {
@@ -110,6 +121,7 @@ export const AD_FORMATS: AdFormat[] = [
     prompt: "Generate a captivating, 8-second time-lapse video. If the product is something that's built or grows, show its creation process. If it's a finished product, show it being used over a period of time (e.g., a plant growing in a pot, a coffee being enjoyed over a morning). The scene should be visually interesting and show a clear progression.",
     example: 'A satisfying time-lapse video of your product being created or used.',
     outputType: 'video',
+    cost: 10,
     icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" }), React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M15 5l-1.41-1.41L12 2 9.41 3.59 8 5m6 14l1.41 1.41L12 22l2.59-1.59L16 19" }))
   },
   {
@@ -119,6 +131,7 @@ export const AD_FORMATS: AdFormat[] = [
     prompt: "Create an authentic-looking, 12-second user testimonial video. The shot should be a medium close-up of a happy, genuine-looking person talking positively while holding or using the product from the image. The setting should be natural, like a home or office. The person should be subtly animated to look like they are speaking enthusiastically.",
     example: 'A short, engaging video that looks like a happy customer reviewing your product.',
     outputType: 'video',
+    cost: 10,
     icon: React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2" }, React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V10a2 2 0 012-2h8z" }))
   },
 ];

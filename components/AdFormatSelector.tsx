@@ -50,19 +50,20 @@ export const AdFormatSelector: React.FC<AdFormatSelectorProps> = ({
               tabIndex={0}
               onKeyPress={(e) => e.key === 'Enter' && onSelectFormat(format)}
             >
-              {selectedFormat.id === format.id && (
-                  <div className="absolute top-2 right-2 bg-indigo-500 text-white rounded-full p-0.5 shadow">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                  </div>
-              )}
+              <div className="absolute top-2 right-2 bg-indigo-500 text-white rounded-full p-0.5 shadow">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+              </div>
               <div className="flex items-start space-x-4">
                 <div className="text-indigo-400 mt-1 flex-shrink-0 w-6 h-6">{format.icon}</div>
                 <div className="flex-1">
                   <h3 className="font-bold text-white pr-6">{format.title}</h3>
                   <p className="text-sm text-gray-400 mt-1">{format.description}</p>
                 </div>
+              </div>
+              <div className="absolute bottom-2 right-3 flex items-center justify-center text-xs font-bold text-yellow-400 bg-gray-900/50 rounded-full px-2 py-0.5">
+                {format.cost} {format.cost === 1 ? 'Credit' : 'Credits'}
               </div>
             </div>
           ))}

@@ -13,6 +13,7 @@ export interface AdFormat {
   example?: string;
   icon: React.ReactNode;
   outputType: 'image' | 'video';
+  cost: number;
 }
 
 // FIX: Renamed properties to be consistent with their usage across the application.

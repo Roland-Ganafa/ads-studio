@@ -4,7 +4,9 @@ import { ImageUploader } from './components/ImageUploader';
 import { AdFormatSelector } from './components/AdFormatSelector';
 import { ResultDisplay } from './components/ResultDisplay';
 import { Gallery } from './components/Gallery';
+import { PricingModal } from './components/PricingModal';
 import { generateAdImage, generateAdVideo, suggestAdCopy } from './services/geminiService';
+import * as api from './services/apiService';
 import type { AdFormat, UploadedImage, Creation, GeneratedAdResult } from './types';
 import { AD_FORMATS } from './constants';
 
@@ -22,28 +24,20 @@ const App: React.FC = () => {
 
   const [creations, setCreations] = useState<Creation[]>([]);
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
+  
+  const [isPricingModalOpen, setIsPricingModalOpen] = useState<boolean>(false);
+  const [userCredits, setUserCredits] = useState<number>(0);
 
   const [suggestedSlogans, setSuggestedSlogans] = useState<string[]>([]);
   const [isSuggesting, setIsSuggesting] = useState<boolean>(false);
 
   useEffect(() => {
-    try {
-      const savedCreations = localStorage.getItem('adStudioCreations');
-      if (savedCreations) {
-        setCreations(JSON.parse(savedCreations));
-      }
-    } catch (err) {
-      console.error("Failed to load creations from local storage:", err);
-    }
+    // Fetch initial data from the mock API service on component mount
+    api.fetchInitialData().then(data => {
+      setCreations(data.creations);
+      setUserCredits(data.credits);
+    });
   }, []);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('adStudioCreations', JSON.stringify(creations));
-    } catch (err) {
-      console.error("Failed to save creations to local storage:", err);
-    }
-  }, [creations]);
 
   useEffect(() => {
     setCustomPrompt(selectedAdFormat.prompt);
@@ -67,6 +61,13 @@ const App: React.FC = () => {
       return;
     }
 
+    const cost = selectedAdFormat.cost;
+    if (userCredits < cost) {
+      setError(`You need ${cost} credits, but you only have ${userCredits}. Please purchase more credits.`);
+      setIsPricingModalOpen(true);
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
     setGeneratedImage(null);
@@ -84,9 +85,10 @@ const App: React.FC = () => {
         setGeneratedText(result.generatedText || null);
       }
       
-      const newCreation: Creation = {
-        id: `creation-${Date.now()}`,
-        timestamp: Date.now(),
+      const updatedCredits = await api.deductCredits(cost);
+      setUserCredits(updatedCredits);
+      
+      const newCreationData: Omit<Creation, 'id' | 'timestamp'> = {
         originalImage: uploadedImage,
         generatedImage: result.generatedImage || null,
         generatedVideoUrl: result.generatedVideoUrl || null,
@@ -96,6 +98,8 @@ const App: React.FC = () => {
         adFormatId: selectedAdFormat.id,
         adFormatTitle: selectedAdFormat.title,
       };
+      
+      const newCreation = await api.saveCreation(newCreationData);
       setCreations(prev => [newCreation, ...prev]);
 
     } catch (err) {
@@ -104,14 +108,16 @@ const App: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [uploadedImage, selectedAdFormat, customPrompt, adCopy]);
+  }, [uploadedImage, selectedAdFormat, customPrompt, adCopy, userCredits]);
   
-  const handleDeleteCreation = (id: string) => {
+  const handleDeleteCreation = async (id: string) => {
+    await api.deleteCreation(id);
     setCreations(prev => prev.filter(c => c.id !== id));
   };
 
-  const handleClearCreations = () => {
+  const handleClearCreations = async () => {
     if (window.confirm("Are you sure you want to delete all creations? This cannot be undone.")) {
+      await api.clearCreations();
       setCreations([]);
     }
   };
@@ -145,6 +151,16 @@ const App: React.FC = () => {
     }
   }, [uploadedImage]);
 
+  const handlePurchaseCredits = async (creditAmount: number, paymentToken: string) => {
+    // In a real app, you'd send the paymentToken to your backend.
+    // Here, we just call our mock API.
+    console.log("Simulating purchase with token:", paymentToken);
+    const newTotal = await api.purchaseCredits(creditAmount);
+    setUserCredits(newTotal);
+    setIsPricingModalOpen(false);
+  };
+
+  const hasEnoughCredits = userCredits >= selectedAdFormat.cost;
   const buttonText = selectedAdFormat.outputType === 'video' ? 'Generate Video' : 'Generate Ad';
   const buttonIcon = selectedAdFormat.outputType === 'video' ? (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -158,7 +174,12 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 font-sans">
-      <Header creationsCount={creations.length} onToggleGallery={() => setIsGalleryOpen(prev => !prev)} />
+      <Header 
+        creationsCount={creations.length} 
+        onToggleGallery={() => setIsGalleryOpen(prev => !prev)}
+        userCredits={userCredits}
+        onBuyCreditsClick={() => setIsPricingModalOpen(true)}
+      />
       
       {isGalleryOpen && (
         <Gallery 
@@ -167,6 +188,13 @@ const App: React.FC = () => {
           onDelete={handleDeleteCreation}
           onClear={handleClearCreations}
           onRemix={handleRemixCreation}
+        />
+      )}
+      
+      {isPricingModalOpen && (
+        <PricingModal
+          onClose={() => setIsPricingModalOpen(false)}
+          onPurchase={handlePurchaseCredits}
         />
       )}
 
@@ -204,14 +232,19 @@ const App: React.FC = () => {
           <section className="text-center">
             <button
               onClick={handleGenerateClick}
-              disabled={!uploadedImage || isLoading}
-              className="w-full max-w-md bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-900/50 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center mx-auto"
+              disabled={!uploadedImage || isLoading || !hasEnoughCredits}
+              className="w-full max-w-md bg-indigo-600 hover:bg-indigo-700 disabled:bg-red-900/50 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center mx-auto"
             >
               {isLoading ? (
                  <svg className="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
+              ) : !hasEnoughCredits && uploadedImage ? (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01" /></svg>
+                  Insufficient Credits
+                </>
               ) : (
                 <>
                   {buttonIcon}
