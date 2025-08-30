@@ -1,0 +1,5 @@
+{
+  "name": "Ads Studio",
+  "description": "Upload a product image and use the Gemini API to visualize it in various professional advertisement formats. See your product on billboards, in magazines, and more.",
+  "requestFramePermissions": []
+}
